@@ -5,15 +5,18 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cristian.backend.apirest.models.entity.Activity;
 import com.cristian.backend.apirest.models.service.IActivityService;
 
 @RestController
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST})
 public class ActivityController {
 	
 	@Autowired
@@ -28,5 +31,5 @@ public class ActivityController {
 	 public Activity createActivity(@Valid @RequestBody Activity activity) {
 	     return activityService.createActivity(activity);
 	 }
-
+	
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Axios consuming API REST Demo</title>
+    </head>
+    <body>
+    <div id="mensaje"></div>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script type="text/javascript">
+        function getAllRequest()
+        {
+           axios.get('http://localhost:8080/listarregistros')
+             .then(function (response) {
+            	 var paso;
+            	 for (paso = 0; paso < response.data.length; paso++) {
+            	   // Se ejecuta 5 veces, con valores desde paso desde 0 hasta 4.
+            		  var newDiv = document.createElement("div");
+            		  var contenido = document.createTextNode(response.data[paso].id);
+            		  newDiv.appendChild(contenido);
+ 				
+ 					
+            		  document.body.appendChild(newDiv);
+            	 };
+            	 
+            	 response.data.forEach(element => console.log(element.id));
+             })
+             .catch(function (error) {
+              console.log(error);
+             })
+             .then(function () {
+             });
+        }
+         
+        
+        </script>
+        <div>
+            <div>
+                <button onclick="getAllRequest()">Get All</button>
+                <button onclick="getFilteredRequest()">Get Filtered</button>
+                <button onclick="getByIdRequest()">Get by Id</button>
+            </div>
+            <div>
+                <button onclick="postRequest()">Create</button>
+            </div>
+            <div>
+                <button onclick="patchRequest()">Update</button>
+            </div>
+            <div>
+                <button onclick="putRequest()">Replace</button>
+            </div>
+            <div>
+                <button onclick="deleteRequest()">Delete</button>
+            </div>
+        </div>
+        
+        
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div id="metric_results">
+		<h2>CARGANDO DATOS DINAMICAMENTE</h2>
+		<input type="button" id="create" value="Click Aquí" onclick="Javascript:addTable()">
+	</div>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+	
+	
+	 function addTable()
+     {
+		 var myTableDiv = document.getElementById("metric_results")
+			var table = document.createElement('TABLE')
+			var tableBody = document.createElement('TBODY')
+
+			table.border = '1'
+			table.appendChild(tableBody);
+		 
+        axios.get('http://localhost:8080/listarregistros')
+          .then(function (response) {
+         	var paso;
+         	
+         	 
+         		var heading = new Array();
+    			heading[0] = "Tipo de Solicitud"
+    			heading[1] = "Grupo A"
+    			heading[2] = "Grupo B"
+    			heading[3] = "Grupo C"
+    			heading[4] = "Total"
+
+    			var stock = response.data
+
+    			//COLUMNAS DE LA TABLA
+    			var tr = document.createElement('TR');
+    			tableBody.appendChild(tr);
+    			for (i = 0; i < heading.length; i++) {
+    			    var th = document.createElement('TH')
+    			    th.width = '75';
+    			    th.appendChild(document.createTextNode(heading[i]));
+    			    tr.appendChild(th);
+    			}
+
+    			//FILAS DE LA TABLA
+    			for (i = 0; i < stock.length; i++) {
+    			    var tr = document.createElement('TR');
+    			    for (j = 0; j < stock[i].length; j++) {
+    			        var td = document.createElement('TD')
+    			        td.appendChild(document.createTextNode(stock[i][j]));
+    			        tr.appendChild(td)
+    			        console.log(stock[i]);
+    			    }
+    			    tableBody.appendChild(tr);
+    			}  
+    			myTableDiv.appendChild(table)
+          })
+          .catch(function (error) {
+           console.log(error);
+          })
+          .then(function () {
+          });
+     }
+
+	
+	
+	
+	</script>
+</body>
+</html>

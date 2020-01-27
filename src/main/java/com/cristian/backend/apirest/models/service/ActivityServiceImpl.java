@@ -29,5 +29,11 @@ public class ActivityServiceImpl implements IActivityService {
 		return activityDao.save(activity);
 	}
 
+	@Override
+	public Activity findById(Long id) {
+		// TODO Auto-generated method stub
+		return activityDao.findById(id).orElseThrow(() -> new IllegalArgumentException("Not found"));
+	}
+
 
 }

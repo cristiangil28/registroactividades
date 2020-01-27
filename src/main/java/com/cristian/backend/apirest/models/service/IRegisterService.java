@@ -7,5 +7,6 @@ import com.cristian.backend.apirest.models.entity.Registro;
 
 public interface IRegisterService {
 	public List<Registro> findAll();
-	public Registro createRegister(Registro registro);
+	public String createRegister(Registro registro);
+	public Registro findById(Long id);
 }

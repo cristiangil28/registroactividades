@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cristian.backend.apirest.models.dao.IRegisterDao;
+import com.cristian.backend.apirest.models.entity.Empleado;
 import com.cristian.backend.apirest.models.entity.Registro;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class RegisterServiceImpl implements IRegisterService{
@@ -26,9 +29,23 @@ public class RegisterServiceImpl implements IRegisterService{
 
 	@Override
 	@Transactional
-	public Registro createRegister(Registro registro) {
+	public String createRegister(Registro registro) {
 		// TODO Auto-generated method stub
-			return registerDao.save(registro);
+		
+		String mensaje ="";
+		if(registerDao.save(registro) !=null) {
+			
+			mensaje="registro guardado existosamente";
+		}
+		else {
+			mensaje = new RuntimeException("el empleado no fue guardado").getMessage();
+		}
+		return mensaje;
+	}
+	@Override
+	public Registro findById(Long id) {
+		// TODO Auto-generated method stub
+		return registerDao.findById(id).get();
 	}
 
 }
